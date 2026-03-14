@@ -1,54 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
- <meta name="theme-color" content="#0d6efd">
-<link rel="apple-touch-icon" href="icon-192x192.png"> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d6efd">
+    <link rel="apple-touch-icon" href="icon-192x192.png">
+    <link rel="manifest" href="manifest.json">
 
- <meta name="theme-color" content="#0d6efd">
-
-
-<title>Teacher Student Form</title>
-
-<link rel="manifest" href="manifest.json">
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <title>Teacher Student Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body class="p-4">
-<img src="2.png" class="rounded  img-fluid w-25 h-25" alt="TeacherForm">
-<h2>Teacher Student Form</h2>
+    <img src="2.png" class="rounded img-fluid w-25 h-25" alt="TeacherForm">
+    <h2 class="mb-4">Teacher Student Form</h2>
 
-<label for="teacherName" class="form-label">Enter Your Name:</label>
-<input type="text" id="teacherName" class="form-control" placeholder="Teacher Name">
+    <div class="mb-3">
+        <label for="teacherName" class="form-label">Enter Your Name:</label>
+        <input type="text" id="teacherName" class="form-control" placeholder="Teacher Name">
+    </div>
 
-<br>
+    <div class="mb-3">
+        <label for="studentName" class="form-label">Enter Student Name:</label>
+        <input type="text" id="studentName" class="form-control" placeholder="Student Name">
+    </div>
 
-<label for="studentName" class="form-label">Enter Student Name:</label>
-<input type="text" id="studentName" class="form-control" placeholder="Student Name">
+    <div class="mb-3">
+        <label for="studentGrade" class="form-label">Enter Student Grade:</label>
+        <input type="text" id="studentGrade" class="form-control" placeholder="Student Grade">
+    </div>
 
-<br>
-<label for="studentGrade" class="form-label">Enter Student Grade:</label>
-<input type="text" id="studentGrade" class="form-control" placeholder="Student Grade">
+    <button class="btn btn-primary" onclick="window.alert('Form submitted successfully!')">Enter</button>
 
+    <!-- Install Button for PWA -->
+    <button class="btn btn-success mt-3" id="installBtn" style="display: none;">Install App</button>
 
+    <script>
+        // Fix: Added closing brace for service worker registration
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("/service-worker.js")
+                    .then(() => {
+                        console.log("ayos! rehistro as service worker");
+                    })
+                    .catch((error) => {
+                        console.log("Registration failed: ", error);
+                    });
+            });
+        }
 
-<button class="btn btn-primary" onclick="window.alert('submit')">Enter</button>
+        // PWA Install Prompt Logic
+        let deferredPrompt;
+        window.addEventListener("beforeinstallprompt", (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById("installBtn").style.display = "block";
 
-
-<script>
- if ("serviceWorker" in navigator) {
-  navigator.serviceWorker
-    .register("/service-worker.js")
-    .then(() => {
-      console.log("ayos! rehistro as service worker");
-    })
-    .catch((error) => {
-      console.log("Registration failed: ", error);
-    });
-</script>
-
+            document.getElementById("installBtn").addEventListener("click", () => {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === "accepted") {
+                        console.log("User accepted the install prompt");
+                    } else {
+                        console.log("User dismissed the install prompt");
+                    }
+                    deferredPrompt = null;
+                    document.getElementById("installBtn").style.display = "none";
+                });
+            });
+        });
+    </script>
 </body>
 </html>
