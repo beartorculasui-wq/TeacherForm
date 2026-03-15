@@ -1,24 +1,21 @@
 {
-    "name": "Teacher Student Form",
-    "short_name": "TeacherForm",
-    "start_url": "/index.html",
-    "display": "standalone",
-    "orientation": "portrait",
-    "theme_color": "#0d6efd",
-    "background_color": "#ffffff",
-    "description": "A simple form for recording teacher and student information with grades",
-    "icons": [
-        {
-            "src": "icon-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "any maskable"
-        },
-        {
-            "src": "icon-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "any"
-        }
-    ]
+  "name": "Teacher Student Form",
+  "short_name": " TeachForm",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#e2e3e5",
+  "theme_color": "#0d6efd",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
